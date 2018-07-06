@@ -1,0 +1,29 @@
+{
+	"1212": {
+		"OS": "Android",
+		"HardwareID": "12121",
+		"model": "xyz",
+		"status": "APPROVED",
+		"executionStatus": "YES"
+	},
+	"1213": {
+		"OS": "Android",
+		"HardwareID": "12121",
+		"model": "xyz",
+		"status": "APPROVED","executionStatus": "NO"
+	},
+	"1214": {
+		"OS": "IOS",
+		"HardwareID": "12121",
+		"model": "xyz",
+		"status": "APPROVED",
+		"executionStatus": "NO"
+	},
+	"1215": {
+		"OS": "IOS",
+		"HardwareID": "12121",
+		"model": "xyz",
+		"status": "APPROVED",
+		"executionStatus": "YES"
+	}
+}
