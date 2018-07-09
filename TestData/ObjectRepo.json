@@ -1,0 +1,50 @@
+{
+	"HamburgerMenu": {
+		"Mobile": "//div[@id='menu-section']",
+		"Tablet": ""
+	},
+	"ShopByCategory": {
+		"Mobile": "//li[@class='shop-by-category hb-mid-block']",
+		"Tablet": ""
+	},
+	"MainCategory": {
+		"Mobile": "//div[@id='mcom-category-menu']/descendant::ul/li[text()='<<<>>>']",
+		"Tablet": ""
+	},
+	"SubCategory": {
+		"Mobile": "//div[@id='mcom-category-menu']/descendant::ul/li[text()='<<<>>>']",
+		"Tablet": ""
+	},
+	"ProductInThePDP": {
+		"Mobile": "(//div[@class='product-name'])[1]/ancestor::a[@class='productDtls']",
+		"Tablet": ""
+	},
+	"SalePrice": {
+		"Mobile": "(//div[@class='product-name'])[1]/ancestor::a[@class='productDtls']/descendant::div[@class='sale-price']",
+		"Tablet": ""
+	},
+	"OriginalPrice": {
+		"Mobile": "//div[@class='product-name'])[1]/ancestor::a[@class='productDtls']/descendant::div[@id='origprice']",
+		"Tablet": ""
+	},
+	"SelectaSizeDropDown": {
+		"Mobile": "//*[@name='sizeRef1' and text()='Select a size']",
+		"Tablet": ""
+	},
+	"SelectSizePopUp_PDP": {
+		"Mobile": "//*[@class=\"sizelist-title\"]/ancestor::*[@class='size-enhance-dropdown']",
+		"Tablet": ""
+	},
+	"SizeOfTheProduct_PDP": {
+		"Mobile": "//*[@class=\"sizelist-title\"]/ancestor::*[@class='size-enhance-dropdown']/descendant::div[@id='productSizeCln-1' and text()='<<<>>>']",
+		"Tablet": ""
+	},
+	"ProductQuantity_PDP": {
+		"Mobile": "//*[@class='quantity-selector']/descendant::input[@id='inpQuantity']",
+		"Tablet": ""
+	},
+	"AddtoCart_PDP": {
+		"Mobile": "//*[@id='add-to-bag-btn' and text()='Add to Cart' and @class='enabled']",
+		"Tablet": ""
+	}
+}
