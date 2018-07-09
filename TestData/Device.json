@@ -1,29 +1,14 @@
 {
-	"1212": {
-		"OS": "Android",
-		"HardwareID": "12121",
-		"model": "xyz",
-		"status": "APPROVED",
-		"executionStatus": "YES"
-	},
-	"1213": {
-		"OS": "Android",
-		"HardwareID": "12121",
-		"model": "xyz",
-		"status": "APPROVED","executionStatus": "NO"
-	},
-	"1214": {
-		"OS": "IOS",
-		"HardwareID": "12121",
-		"model": "xyz",
-		"status": "APPROVED",
-		"executionStatus": "NO"
-	},
-	"1215": {
-		"OS": "IOS",
-		"HardwareID": "12121",
-		"model": "xyz",
-		"status": "APPROVED",
-		"executionStatus": "YES"
-	}
+	"Device001": {
+	  "_id":"d83bcc68",		"os": "Android",		"hardwareId": "Unavailable",		"model": "Lenovo",		"status": "APPROVED",		"executionStatus": "YES",		"deviceType":"Mobile"	},
+	"Device002": {
+	  "_id":"NotAvailable",		"OS": "Android",		"HardwareID": "12121",		"model": "xyz",		"status": "APPROVED",		"executionStatus": "NO",		"deviceType":"Mobile"	},
+	"Device003": {
+	  "_id":"NotAvailable",		"OS": "IOS",		"HardwareID": "12121",		"model": "xyz",		"status": "APPROVED",		"executionStatus": "NO",		"deviceType":"Mobile"	},
+	"Device004": {
+	  "_id":"NotAvailable",		"OS": "IOS",		"HardwareID": "12121",		"model": "xyz",		"status": "APPROVED",		"executionStatus": "NO",		"deviceType":"Mobile"	},
+	"Device005": {
+	  "_id":"NotAvailable",		"OS": "IOS",		"HardwareID": "12121",		"model": "xyz",		"status": "APPROVED",		"executionStatus": "NO",		"deviceType":"Mobile"	}
+
+
 }
