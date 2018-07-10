@@ -10,95 +10,124 @@ public class HomePage extends AppiumActionsHandler {
 
 	private HomePageLocator locator;
 
+	// Constructor to decide the platform and load OR respec.
 	public HomePage(RemoteWebDriver driver) {
 		String strContext = null;
-		if(Utility.instance().getConfigProperty("").equalsIgnoreCase("")) {
-			strContext="mobile";
-		}
-		else {
-			strContext="tablet";
+		if (Utility.instance().getConfigProperty("Platform").equalsIgnoreCase("MRP")) {
+			strContext = "mobile";
+		} else {
+			strContext = "tablet";
 		}
 		locator = new HomePageLocator(strContext);
 	}
 
+	/*
+	 * Description:open Hamburger menu using gi
+	 */
 	public void openHamMenu(RemoteWebDriver driver) {
-		returnElement(locator.objHamburgerMenu, driver, "").click();
+		if (checkexistenceAndClick(locator.objHamburgerMenu, driver)) {
+			isDisplayed(locator.objShopByCategory, driver);
+		}
 	}
 
+	/*
+	 * Description:
+	 */
 	public void navigateToShopByCatogory(RemoteWebDriver driver) {
-		driver.findElement(By.xpath("//li[@class='shop-by-category hb-mid-block']")).click();
+		click(locator.objShopByCategory, driver);
 	}
 
-	public void navToCategory(String strCategory, RemoteWebDriver driver) {
-		driver.findElement(By.xpath("//div[@id='mcom-category-menu']/descendant::ul/li[text()='Women']")).click();
+	/*
+	 * Description:
+	 */
+	public void navToCategory(RemoteWebDriver driver, String strCategoryValue) {
+		checkexistenceAndClick(locator.objCategoryHamburgerMenu, driver, strCategoryValue);
 	}
 
-	public void navToSubCategory(String strSubCategory, RemoteWebDriver driver) {
-		driver.findElement(By.xpath("//div[@id='mcom-category-menu']/descendant::ul/li[text()='Patriotic for Women']"))
-				.click();
+	/*
+	 * Description:
+	 */
+	public void navToSubCategory( RemoteWebDriver driver, String strCategoryValue) {
+		checkexistenceAndClick(locator.objSubCategoryHamburgerMenu, driver, strCategoryValue);
 	}
 
-	public String getOriginalPrice_Product(RemoteWebDriver driver) {
-		String OriginalPrice = driver.findElement(By.xpath(
-				"(//div[@class='product-name'])[1]/ancestor::a[@class='productDtls']/descendant::div[@id='origprice']"))
-				.getText();
+	/*
+	 * Description:
+	 */
+	public String getOriginalPriceProduct(RemoteWebDriver driver, String iproductNumber) {
+
+		String OriginalPrice = getText(locator.txtOriginalPrice, driver, iproductNumber);
 		System.out.println("Original Price = " + OriginalPrice);
 
 		return OriginalPrice;
 	}
 
-	public String getSalePrice_Product(RemoteWebDriver driver) {
-		String SalePrice = driver.findElement(By.xpath(
-				"(//div[@class='product-name'])[1]/ancestor::a[@class='productDtls']/descendant::div[@class='sale-price']"))
-				.getText();
-
-		System.out.println(SalePrice);
-
-		return SalePrice;
+	/*
+	 * Description:
+	 */
+	public String getSalePriceProduct(RemoteWebDriver driver, String iproductNumber) {
+		String strSalePrice = getText(locator.txtSalePricePDP, driver, iproductNumber);
+		System.out.println(strSalePrice);
+		return strSalePrice;
 	}
 
-	public void selectProductFromPdp(RemoteWebDriver driver, int iProductNo) {
-		driver.findElement(By.xpath("(//div[@class='product-name'])[1]/ancestor::a[@class='productDtls']")).click();
+	/*
+	 * Description:
+	 */
+	public void selectProductFromPdp(RemoteWebDriver driver, String iProductNo) {
+		click(locator.objProductinThePDP, driver, iProductNo);
+		isDisplayed(locator.dropDownSelectSizeDropDown, driver);
 	}
 
-	public void SelectaSize_PDP(String strSize, RemoteWebDriver driver) {
-
-		driver.findElement(By.xpath("//*[@name='sizeRef1' and text()='Select a size']")).click();
-
-		if (driver.findElement(By.xpath("//*[@class=\"sizelist-title\"]/ancestor::*[@class='size-enhance-dropdown']"))
-				.isDisplayed()) {
-			driver.findElement(By.xpath(
-					"//*[@class=\"sizelist-title\"]/ancestor::*[@class='size-enhance-dropdown']/descendant::div[@id='productSizeCln-1' and text()='SMALL']"))
-					.click();
+	/*
+	 * Description:
+	 */
+	public void selectaSizePDP(RemoteWebDriver driver, String strProductSize) {
+		click(locator.dropDownSelectSizeDropDown, driver);
+		if (isDisplayed(locator.objSelectSizePopUp_PDP, driver)) {
+			checkexistenceAndClick(locator.txtSizeOfTheProduct_PDP, driver, strProductSize);
 		}
 	}
 
-	public int getQtyOFtheProduct(RemoteWebDriver driver) {
-		String currentQuantity = driver
-				.findElement(By.xpath("//*[@class='quantity-selector']/descendant::input[@id='inpQuantity']"))
-				.getAttribute("value");
+	/*
+	 * Description:
+	 */
+	public String getQtyOFtheProduct(RemoteWebDriver driver) {
+		String currentQuantity = getAttribute(locator.txtProductQuantity_PDP, "value", driver);
 		System.out.println("Current Prod Qty = " + currentQuantity);
-		return Integer.parseInt(currentQuantity);
+		return currentQuantity;
 	}
 
-	public void addToCart(int iCurrentyQty, RemoteWebDriver driver) {
-		driver.findElement(By.xpath("//*[@id='add-to-bag-btn' and text()='Add to Cart' and @class='enabled']")).click();
-		driver.findElement(By.xpath("//*[text()='Item added to Cart']")).isDisplayed();
+	/*
+	 * Description:
+	 */
+	public void addToCart(RemoteWebDriver driver) {
+		checkexistenceAndClick(locator.buttonAddtoCart_PDP, driver);
+		isDisplayed(locator.txtItemAddedToCart, driver);
 	}
 
-	public void navToShoppingBag(RemoteWebDriver driver) {
-		driver.findElement(By.xpath("//*[text()='VIEW CART & APPLY PROMOS']")).click();
-		driver.findElement(By.xpath("//*[@class='mcom-cart-icon cart-enabled']/span[text()='1']")).isDisplayed();
+	
+	/*
+	 * Description:
+	 */
+	public void navToShoppingBag(RemoteWebDriver driver , String strProductCount) {
+		checkexistenceAndClick(locator.buttonViewCartApplyPromos, driver);
+		isDisplayed(locator.imgShoppingCartIconWithCount, driver, strProductCount);
 	}
 
-	public void clickCheckOut_ShoppingCart(RemoteWebDriver driver) {
-		driver.findElement(By.xpath(
-				"//a[@class='btn btn-success big btn-block btn-move-to-checkout ng-binding' and text()='Checkout']"))
-				.click();
+	
+	/*
+	 * Description:
+	 */
+	public void clickCheckOutShoppingCart(RemoteWebDriver driver) {		
+		checkexistenceAndClick(locator.buttonCheckOutShoppingBag, driver);
 	}
 
+	/*
+	 * Description:
+	 */
 	public void enterGuestCheckout(RemoteWebDriver driver) {
-		driver.findElement(By.xpath("//button[@class='guest-checkout-button' and text()='Guest Checkout']")).click();
+		checkexistenceAndClick(locator.buttonGuestCheckOut, driver);
 	}
 
 }

@@ -1,35 +1,44 @@
 package shoppingBag;
 
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
-
 import com.genName.BusinessDef.HomePage;
 import com.genName.baseTest.BaseTest;
 
 public class VerifyShoppingBagCount extends BaseTest {
 
+	private static final Logger logger = LogManager.getLogger(VerifyShoppingBagCount.class);
 	HomePage home = new HomePage(getWebDriver());
 
 	@Test
-	public void VerifyShoppingBagCount() {		
-
+	public void testVerifyShoppingBagCount() {		
+		
 		home.openHamMenu(getWebDriver());
+		
 		home.navigateToShopByCatogory(getWebDriver());
-		home.navToCategory("Women", getWebDriver());
-		home.navToSubCategory("SringToBepassed", getWebDriver());
+		
+		home.navToCategory(getWebDriver(), "Women");
+		
+		home.navToSubCategory( getWebDriver(), "");
+				
+		String strOrigPricce = home.getOriginalPriceProduct(getWebDriver() ,"1" );
+		
+		String strSalePrice = home.getSalePriceProduct(getWebDriver() ,"1");
+		
+		logger.info("SalePrice = "+strSalePrice);
+		
+		logger.info("OrignalPrice = "+strOrigPricce);
+		home.selectProductFromPdp(getWebDriver(), "1");
+		
+		home.selectaSizePDP(getWebDriver(), "SMALL");
+		
+		String strProdQty = home.getQtyOFtheProduct(getWebDriver());
+		
+		home.addToCart(getWebDriver());
+		
+		home.navToShoppingBag(getWebDriver(), strProdQty);
 
-		home.selectProductFromPdp(getWebDriver(), 1);
-
-		home.getOriginalPrice_Product(getWebDriver());
-
-		home.getSalePrice_Product(getWebDriver());
-
-		home.SelectaSize_PDP("SMALL", getWebDriver());
 	}
 
-	@AfterTest
-	public void tearDown() {
-
-	}
 }

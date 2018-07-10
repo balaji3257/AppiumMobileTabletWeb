@@ -8,10 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.log4j.Appender;
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class Utility {
+public class Utility<E> {
 	private Properties cP = new Properties();
 	private static String userDir = System.getProperty("user.dir");
 	private static Utility singleton = new Utility();
@@ -43,38 +47,40 @@ public class Utility {
 	public List<Map<String, String>> deviceJsonAsMap() {
 		JSONObject deviceJsonObject;
 		List<Map<String, String>> deviceList = new ArrayList<>();
-		Map<String, String> innerDeviceMap = new HashMap<>();
+		Map<String, String> innerDeviceMap ;
 		JSONParser parser = new JSONParser();
 		String fileName = userDir + "\\TestData\\Device.json";
 		try {
 			Object obj = parser.parse(new FileReader(fileName));
 			JSONObject jsonObject = (JSONObject) obj;
-			Iterator iterator = jsonObject.keySet().iterator();
+			Iterator<E> iterator = jsonObject.keySet().iterator();
 			while (iterator.hasNext()) {
 				String key = (String) iterator.next();
 				if (jsonObject.get(key) instanceof JSONObject) {
 					deviceJsonObject = (JSONObject) jsonObject.get(key);
-					if ((deviceJsonObject != null)
-							&& deviceJsonObject.get("executionStatus").toString().equalsIgnoreCase("YES")) {
+					if ((deviceJsonObject != null) && deviceJsonObject.get("executionStatus").toString().equalsIgnoreCase("YES")) {
+						innerDeviceMap = new HashMap<>();
 						innerDeviceMap = toMap(deviceJsonObject);
+						innerDeviceMap.put("ReUsability", "Yes");
+						deviceList.add(innerDeviceMap);
 					}
 				}
+				
 			}
-			innerDeviceMap.put("ReUsability", "Yes");
-			deviceList.add(innerDeviceMap);
+			
 		} catch (Exception e) {
 			System.out.println("problem in reading " + fileName);
 		}
-
 		return deviceList;
 
 	}
 
 	private Map<String, String> toMap(JSONObject jsonobj) {
 		Map<String, String> map = new HashMap<>();
-		Iterator<String> keys = (Iterator<String>) jsonobj.keySet();
+		Iterator<E> keys = jsonobj.keySet().iterator();
+//		Iterator<String> keys = (Iterator<String>) jsonobj.keySet();
 		while (keys.hasNext()) {
-			String key = keys.next();
+			String key = (String) keys.next();
 			Object value = jsonobj.get(key);
 
 			if (value instanceof JSONObject) {
@@ -84,12 +90,11 @@ public class Utility {
 		}
 		return map;
 	}
-
-	public String getLocator(String strKeyValue) {
-		String strObjectFromJson;
-		JSONObject ORJsonObject;
-
-		return null;
-
+	
+	public void initLogger() {
+		PatternLayout layout = new PatternLayout("%-4r [%t] %d %-5p %c %x - %m%n");
+		Appender consoleAppender = new ConsoleAppender(layout);
+		Logger.getRootLogger().addAppender(consoleAppender);							
 	}
+
 }
