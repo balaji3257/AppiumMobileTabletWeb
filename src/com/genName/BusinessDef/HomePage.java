@@ -3,17 +3,26 @@ package com.genName.BusinessDef;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.genName.config.Utility;
 import com.genName.core.AppiumActionsHandler;
 
-public class HomePage extends AppiumActionsHandler{
+public class HomePage extends AppiumActionsHandler {
 
-	public HomePage() {
-		
+	private HomePageLocator locator;
+
+	public HomePage(RemoteWebDriver driver) {
+		String strContext = null;
+		if(Utility.instance().getConfigProperty("").equalsIgnoreCase("")) {
+			strContext="mobile";
+		}
+		else {
+			strContext="tablet";
+		}
+		locator = new HomePageLocator(strContext);
 	}
 
-	
 	public void openHamMenu(RemoteWebDriver driver) {
-		driver.findElement(By.xpath("//div[@id='menu-section']")).click();
+		returnElement(locator.objHamburgerMenu, driver, "").click();
 	}
 
 	public void navigateToShopByCatogory(RemoteWebDriver driver) {
