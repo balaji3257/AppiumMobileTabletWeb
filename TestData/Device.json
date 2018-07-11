@@ -9,12 +9,12 @@
 		"deviceType": "Mobile"
 	},
 	"Device002": {
-		"_id": "NotAvailable",
-		"OS": "Android",
+		"_id": "5tg435tsds556ddfs446dg6yy77764",
+		"OS": "IOS",
 		"HardwareID": "12121",
 		"model": "xyz",
 		"status": "APPROVED",
-		"executionStatus": "NO",
+		"executionStatus": "Yes",
 		"deviceType": "Mobile"
 	},
 	"Device003": {

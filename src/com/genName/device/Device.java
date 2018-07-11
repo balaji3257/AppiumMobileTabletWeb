@@ -3,14 +3,18 @@ package com.genName.device;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class Device {
+	private DesiredCapabilities dc;
 	private String deviceID;
 	private String deviceOS;
 	private boolean deviceUsed = false;
-	private DesiredCapabilities dC;
 	private long lockTime;
 
-	public Device(DesiredCapabilities dC) {
-		this.dC = dC;
+	public Device(DesiredCapabilities dc) {
+		this.dc = dc;
+	}
+
+	public DesiredCapabilities getDc() {
+		return dc;
 	}
 
 	public String getDeviceID() {
@@ -19,6 +23,10 @@ public class Device {
 
 	public String getDeviceOS() {
 		return deviceOS;
+	}
+
+	public long getLockTime() {
+		return lockTime;
 	}
 
 	public boolean isDeviceUsed() {
@@ -35,10 +43,6 @@ public class Device {
 
 	public void setDeviceUsed(boolean deviceUsed) {
 		this.deviceUsed = deviceUsed;
-	}
-
-	public long getLockTime() {
-		return lockTime;
 	}
 
 	public void setLockTime(long lockTime) {

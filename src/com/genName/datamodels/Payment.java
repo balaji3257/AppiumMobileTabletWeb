@@ -1,6 +1,10 @@
 package com.genName.datamodels;
 
 public class Payment {
+	
+	/*
+	 * This is class used to map the given row of CSV data to java Object.
+	 */
 
 	private String PaymentType;
 	private String CardType;

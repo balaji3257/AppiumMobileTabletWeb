@@ -4,11 +4,11 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
-import com.genName.BusinessDef.HomePage;
+import com.genName.BusinessDef.Home;
+import com.genName.BusinessDef.PDP;
+import com.genName.BusinessDef.PMP;
+import com.genName.BusinessDef.ShoppingCart;
 import com.genName.baseTest.BaseTest;
-import com.genName.datamodels.Payment;
-import com.genName.datamodels.Product;
-import com.genName.datamodels.UserDetails;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -17,21 +17,23 @@ import io.qameta.allure.Feature;
 @Epic("REGRESSION")
 public class VerifyShoppingBagCount extends BaseTest {
 
+	// logger - to log executuion details
 	private static final Logger logger = LogManager.getLogger(VerifyShoppingBagCount.class);
-	Payment paymentData = new Payment();
-	Product productData = new Product();
-	UserDetails userDetaildata = new UserDetails();
 
-	public static final String PRODUCT_ORDER 	= "2";
-	public static final String PRODUCT_DETAIL 	= "ShopByCategory";
-	public static final String PAYMENTTYPE 		= "";
-	public static final String USERDETAILSTYPE 	= "";
-	HomePage home = new HomePage(getWebDriver());
+	public static final String PRODUCT_ORDER = "2";
+	public static final String PRODUCT_DETAIL = "ShopByCategory";
+	public static final String PAYMENTTYPE = "";
+	public static final String USERDETAILSTYPE = "";
+	Home home = new Home();
+	PDP pdp = new PDP();
+	PMP pmp = new PMP();
+	ShoppingCart cart = new ShoppingCart();
 
+	// Test method - implementation using TestNG unit testing framework
 	@Feature("ShoppingBag")
 	@Description("Verify shoppingBag Count")
-	@Test
-	public void testVerifyShoppingBagCount() {
+	@Test(groups = { "ExampleGroupName" })
+	public void testVerifyShoppingBagCount() throws Exception {
 
 		home.openHamMenu(getWebDriver());
 
@@ -41,23 +43,27 @@ public class VerifyShoppingBagCount extends BaseTest {
 
 		home.navToSubCategory(getWebDriver(), PRODUCT_DETAIL);
 
-		String strOrigPricce = home.getOriginalPriceProduct(getWebDriver(), PRODUCT_ORDER);
+		String strOrigPricce = pdp.getOriginalPriceProduct(getWebDriver(), PRODUCT_ORDER);
 
-		String strSalePrice = home.getSalePriceProduct(getWebDriver(), PRODUCT_ORDER);
+		String strSalePrice = pdp.getSalePriceProduct(getWebDriver(), PRODUCT_ORDER);
 
 		logger.info("SalePrice = " + strSalePrice);
 
 		logger.info("OrignalPrice = " + strOrigPricce);
-		home.selectProductFromPdp(getWebDriver(), PRODUCT_ORDER);
 
-		home.selectaSizePDP(getWebDriver(), PRODUCT_DETAIL);
+		pdp.selectProductFromPdp(getWebDriver(), PRODUCT_ORDER);
 
-		String strProdQty = home.getQtyOFtheProduct(getWebDriver());
+		pmp.selectaSizePDP(getWebDriver(), PRODUCT_DETAIL);
 
-		home.addToCart(getWebDriver());
+		String strProdQty = pmp.getQtyOFtheProduct(getWebDriver());
 
-		home.navToShoppingBag(getWebDriver(), strProdQty);
+		pmp.addToCart(getWebDriver());
 
+		pmp.navToShoppingBag(getWebDriver(), strProdQty);
+
+		cart.clickCheckOutShoppingCart(getWebDriver());
+
+		cart.enterGuestCheckout(getWebDriver());
 	}
 
 }

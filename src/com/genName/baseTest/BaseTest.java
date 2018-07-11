@@ -20,51 +20,36 @@ import com.genName.config.Utility;
 import com.genName.core.AppiumServer;
 
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.qameta.allure.Step;
 
 public class BaseTest {
 
+	
+	static AppiumServer appiumServer = new AppiumServer();
+	private static Map<String, String> localDeviceMap = new HashMap<>();
+	/*
+	 * Base class is used to configure the device and other environment Details for the Execution
+	 */
 	private static final Logger logger = LogManager.getLogger(BaseTest.class);
-	private ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
+	static String serverUrl;
 	private DesiredCapabilities cap;
 	private List<Map<String, String>> deviceList = new ArrayList<>();
-	private static Map<String, String> localDeviceMap = new HashMap<>();
-	static AppiumServer appiumServer = new AppiumServer();
-	static String serverUrl;
-
-	@BeforeSuite
-	public void loadEnvironment() throws Exception {
-		Utility.instance().initLogger();
-		logger.info("Running BeforeSuite");		
-		loadDeviceJsonAsMap();		
-		logger.info("Ending BeforeSuite");
-	}
+	private ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 
 	@AfterSuite
-	public void clearEnvironment() {
-		logger.info("Running AfterSuite");
+	public void flushEnvironmentVariables() {
 		if (deviceList != null) {
 			localDeviceMap = null;
 			deviceList = null;
 		}		
-		logger.info("Ending AfterSuite");
+		logger.info("Ending TestSuite");
 	}
 
-	@BeforeClass
-	public void testSetUp() {
-		logger.info("Running BeforeClass");
-		URL url;
-		try {
-			setDesiredCapabilities();
-			serverUrl  = appiumServer.startServer();
-			url = new URL(serverUrl);
-			driver.set(new RemoteWebDriver(url, cap));
-			launchApp();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		logger.info("Ending AfterClass");
+	protected RemoteWebDriver getWebDriver() {
+		return driver.get();
 	}
 
+	@Step("Launching the App")
 	private boolean launchApp() {
 		logger.info("Launching App");
 		boolean isAppLaunched = false;
@@ -73,6 +58,22 @@ public class BaseTest {
 		return isAppLaunched;
 	}
 
+	@BeforeSuite
+	public void loadDeviceAndLogger() throws Exception {
+		Utility.instance().initLogger();
+		logger.info("Starting TestSuite");		
+		loadDeviceJsonAsMap();		
+	}
+
+	@SuppressWarnings("unchecked")
+	private void loadDeviceJsonAsMap() throws Exception {
+		deviceList = Utility.instance().deviceJsonAsMap();
+		if(deviceList.size()<0) {
+			throw new Exception("Error Loading Device.json file");
+		}
+	}
+
+	@Step("Set DesiredCapabilities")
 	private void setDesiredCapabilities() {
 		if(logger.isInfoEnabled()) {
 			logger.info("Setting capabilities..");
@@ -104,29 +105,29 @@ public class BaseTest {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	private void loadDeviceJsonAsMap() throws Exception {
-		deviceList = Utility.instance().deviceJsonAsMap();
-		if(deviceList.size()<0) {
-			throw new Exception("Error Loading Device.json file");
-		}
-	}
-
 	@AfterClass
 	public void tearDown() {
-//		if (driver != null) {
-			appiumServer.stopServer();
-			localDeviceMap.put("ReUsability", "Yes");
-//		}
-		
 		int PortNumber = Integer.parseInt(serverUrl.split(":")[2].replaceAll("/wd/hub", "") );
 		if(appiumServer.checkIfServerIsRunnning(PortNumber) ) {
 			appiumServer.stopServer();
+			localDeviceMap.put("ReUsability", "Yes");
 		}
 	}
 
-	protected RemoteWebDriver getWebDriver() {
-		return driver.get();
+	@BeforeClass
+	public void testSetUp() {
+		logger.info("Starting TestClass");
+		URL url;
+		try {
+			setDesiredCapabilities();
+			serverUrl  = appiumServer.startServer();
+			url = new URL(serverUrl);
+			driver.set(new RemoteWebDriver(url, cap));
+			launchApp();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		logger.info("Ending AfterClass");
 	}
 
 }

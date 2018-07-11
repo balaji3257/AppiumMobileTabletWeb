@@ -11,13 +11,16 @@ import io.qameta.allure.Step;
 
 public class AppiumActionsHandler {
 
+	
 	private static final String strReplaceToken = "<<<>>>";
-	public WebElement objectToBeIdentified = null;
+	private WebElement objectToBeIdentified = null;
 
 	private SoftAssert softAssert;
 
 	/*
-	 * Desc: Author:
+	 * Desc: Webdriverwait implementation. 
+	 * Author:
+	 * return : null
 	 */
 	@Step
 	private void callWait(RemoteWebDriver driver, int iTimeOut) {
@@ -26,10 +29,12 @@ public class AppiumActionsHandler {
 	}
 
 	/*
-	 * Desc: Author:
+	 * Desc : Check the existence of the given object and click the element . 
+	 * Author:
+	 * return : boolean
 	 */
 	@Step
-	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver) {
+	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver) throws Exception {
 		boolean isClicked = false;
 		try {
 			objectToBeIdentified = returnElement(strObjectLocator, getLocType(strObjectLocator), driver);
@@ -38,17 +43,18 @@ public class AppiumActionsHandler {
 				isClicked = true;
 			}
 		} catch (Exception e) {
-
+			throw new Exception("Non existence of the element : "+ strObjectLocator);
 		}
 		return isClicked;
 	}
 
 	/*
-	 * Desc: Author:
+	 * Desc : Check the existence of the given object and click the element based on the given dynamic xpath value. 
+	 * Author:
+	 * return : boolean
 	 */
 	@Step
-	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver,
-			String strReplacementValues) {
+	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver,String strReplacementValues) {
 		boolean isClicked = false;
 		String strPostReplaceXpath = replaceXpathVariables(strObjectLocator, strReplacementValues);
 		try {
@@ -63,6 +69,11 @@ public class AppiumActionsHandler {
 		return isClicked;
 	}
 
+	/*
+	 * Desc : Check the element based on the given xpath value. 
+	 * Author:
+	 * return : boolean
+	 */
 	@Step
 	protected boolean click(String strObjectLocator, RemoteWebDriver driver) {
 		boolean isClicked = false;
@@ -79,6 +90,11 @@ public class AppiumActionsHandler {
 		return isClicked;
 	}
 
+	/*
+	 * Desc : Check the element based on the given dynamic xpath value. 
+	 * Author:
+	 * return : boolean
+	 */
 	@Step
 	protected boolean click(String strObjectLocator, RemoteWebDriver driver, String strReplaceValue) {
 
@@ -98,13 +114,20 @@ public class AppiumActionsHandler {
 	}
 
 	/*
-	 * Desc: Author:
+	 * Desc : Return Locator type
+	 * Author:
+	 * return : String value
 	 */
 	@Step
 	private String getLocType(String strObjectLocator) {
 		return strObjectLocator.split(":")[0].trim();
 	}
 
+	/*
+	 * Desc : Returns softAssert Object. 
+	 * Author:
+	 * return : soft assert object
+	 */
 	@Step
 	protected SoftAssert getSoftAssert() {
 		if (softAssert == null) {
@@ -113,6 +136,11 @@ public class AppiumActionsHandler {
 		return softAssert;
 	}
 
+	/*
+	 * Desc : Get the text of the given element
+	 * Author:
+	 * return : String value
+	 */
 	@Step
 	protected String getText(String strObjectLocator, RemoteWebDriver driver, String strReplaceValue) {
 		String strFetchValue = null;
@@ -131,7 +159,9 @@ public class AppiumActionsHandler {
 	}
 
 	/*
-	 * Desc: Author:
+	 * Desc: Check the existence of the given element
+	 * Author:
+	 * Return: boolean 
 	 */
 	@Step
 	protected boolean isDisplayed(String strObjectLocator, RemoteWebDriver driver) {
@@ -148,7 +178,9 @@ public class AppiumActionsHandler {
 	}
 
 	/*
-	 * Desc: Author:
+	 * Desc: Check the existence of the given element
+	 * Author:
+	 * Return: boolean 
 	 */
 	@Step
 	protected boolean isDisplayed(String strObjectLocator, RemoteWebDriver driver, String strReplaceValue) {
@@ -165,6 +197,11 @@ public class AppiumActionsHandler {
 		return isDisplayedFlag;
 	}
 
+	/*
+	 * Desc: Return the value of the given attribute dynamically
+	 * Author:
+	 * Return: String 
+	 */
 	@Step
 	protected String getAttribute(String strObjectLocator, String strAttributeValue, RemoteWebDriver driver) {
 		String strFetchAttributeValue = null;
@@ -180,14 +217,12 @@ public class AppiumActionsHandler {
 		return strFetchAttributeValue;
 	}
 
-	/*
-	 * Desc: Author:
-	 */
-	@Step
-	protected boolean isElementPresent(String Object, RemoteWebDriver driver, int iTimeOut) {
-		return false;
-	}
 
+	/*
+	 * Desc: Replace the given String value in the Object string
+	 * Author:
+	 * Return: String 
+	 */
 	@Step
 	private String replaceAllXpathVariable(String strObjectLocator, String[] strReplaceValue) {
 		String strPostReplacement = null;
@@ -197,6 +232,11 @@ public class AppiumActionsHandler {
 		return strPostReplacement;
 	}
 
+	/*
+	 * Desc: Replace the given String value in the Object string
+	 * Author:
+	 * Return: String 
+	 */
 	@Step
 	private String replaceXpathVariables(String strObjectLocator, String strReplaceValue) {
 		String strRepalcedLocator = strObjectLocator.replace(strReplaceToken, strReplaceValue);
@@ -204,7 +244,9 @@ public class AppiumActionsHandler {
 	}
 
 	/*
-	 * Desc: Author:
+	 * Desc: Returns the element of the given locator.
+	 * Author:
+	 * Return: WebElement 
 	 */
 	@Step
 	private WebElement returnElement(String objectName, String strLocaType, RemoteWebDriver driver) {
@@ -234,7 +276,9 @@ public class AppiumActionsHandler {
 	}
 
 	/*
-	 * Desc: Author:
+	 * Desc: Returns the element of the given locator dynamically.
+	 * Author:
+	 * Return: WebElement 
 	 */
 	@Step
 	protected WebElement returnElement(String objectName, String strLocaType, RemoteWebDriver driver,
@@ -246,7 +290,9 @@ public class AppiumActionsHandler {
 	}
 
 	/*
-	 * Desc: Author:
+	 * Desc: Returns the element of the given locator dynamically.
+	 * Author:
+	 * Return: WebElement 
 	 */
 	@Step
 	private WebElement returnElement(String objectName, String strLocaType, RemoteWebDriver driver,String[] replacementValue) {

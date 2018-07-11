@@ -1,5 +1,9 @@
 package com.genName.datamodels;
 
+
+/*
+ * This is class used to map the given row of CSV data to java Object.
+ */
 public class UserDetails {
 
 	private String UserType;

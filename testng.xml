@@ -1,36 +1,11 @@
-<!-- <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="TestSuite_Sanity" parallel="methods" thread-count="3"  verbose="1" >
-	verbose="1">
-	<test name="Sanity">
+<suite name="TestSuite_Sanity" verbose="1">
+	<test name="SanityTest">
 		<classes>
-			<class name="testCases.VerifyBasicFunctionality" />
+			<class name="shoppingBag.VerifyShoppingBagCount" />
 		</classes>
 	</test>
-</suite> -->
-
-
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-  
-<suite name="TestSuite_Sanity"  verbose="1" >
-  <test name="Sanity" >
-    <classes>
-      <class name="testCases.VerifyBasicFunctionality" />
-     <!--  <class name="testCases.VerifyBasicFunctionality" />
-      <class name="testCases.VerifyBasicFunctionality" /> -->
-    </classes>
-   </test>
-  <!--<test name="Regression" >
-    <classes>
-      <class name="testCases.VerifyBasicFunctionality" />
-    </classes>
-  </test>
-  <test name="SchemaValidation" >
-    <classes>
-      <class name="testCases.VerifyBasicFunctionality" />
-    </classes>
-  </test> -->
 </suite>
 
 
-<!-- parallel="methods" thread-count="2"  verbose="1" -->
