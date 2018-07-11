@@ -199,7 +199,8 @@ public class AppiumActionsHandler {
 
 	@Step
 	private String replaceXpathVariables(String strObjectLocator, String strReplaceValue) {
-		return strObjectLocator.replace(strReplaceToken, strReplaceValue);
+		String strRepalcedLocator = strObjectLocator.replace(strReplaceToken, strReplaceValue);
+		return strRepalcedLocator;
 	}
 
 	/*

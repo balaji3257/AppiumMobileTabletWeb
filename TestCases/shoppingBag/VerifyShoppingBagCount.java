@@ -22,8 +22,8 @@ public class VerifyShoppingBagCount extends BaseTest {
 	Product productData = new Product();
 	UserDetails userDetaildata = new UserDetails();
 
-	public static final String PRODUCTORDER 	= "2";
-	public static final String PRODUCTDETAIL 	= "ShopByCategory";
+	public static final String PRODUCT_ORDER 	= "2";
+	public static final String PRODUCT_DETAIL 	= "ShopByCategory";
 	public static final String PAYMENTTYPE 		= "";
 	public static final String USERDETAILSTYPE 	= "";
 	HomePage home = new HomePage(getWebDriver());
@@ -37,20 +37,20 @@ public class VerifyShoppingBagCount extends BaseTest {
 
 		home.navigateToShopByCatogory(getWebDriver());
 
-		home.navToCategory(getWebDriver(), PRODUCTDETAIL);
+		home.navToCategory(getWebDriver(), PRODUCT_DETAIL);
 
-		home.navToSubCategory(getWebDriver(), PRODUCTDETAIL);
+		home.navToSubCategory(getWebDriver(), PRODUCT_DETAIL);
 
-		String strOrigPricce = home.getOriginalPriceProduct(getWebDriver(), PRODUCTORDER);
+		String strOrigPricce = home.getOriginalPriceProduct(getWebDriver(), PRODUCT_ORDER);
 
-		String strSalePrice = home.getSalePriceProduct(getWebDriver(), PRODUCTORDER);
+		String strSalePrice = home.getSalePriceProduct(getWebDriver(), PRODUCT_ORDER);
 
 		logger.info("SalePrice = " + strSalePrice);
 
 		logger.info("OrignalPrice = " + strOrigPricce);
-		home.selectProductFromPdp(getWebDriver(), PRODUCTORDER);
+		home.selectProductFromPdp(getWebDriver(), PRODUCT_ORDER);
 
-		home.selectaSizePDP(getWebDriver(), PRODUCTDETAIL);
+		home.selectaSizePDP(getWebDriver(), PRODUCT_DETAIL);
 
 		String strProdQty = home.getQtyOFtheProduct(getWebDriver());
 

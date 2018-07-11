@@ -15,9 +15,9 @@ import au.com.bytecode.opencsv.bean.CsvToBean;
 public class DataReader {
 
 	private static final String USERDIR = System.getProperty("user.dir");
-	private static final String PRODUCTFILE = USERDIR + "";
-	private static final String PAYMENTFILE = USERDIR + "";
-	private static final String USERDETAILSFILE = USERDIR + "";
+	private static final String PRODUCTFILE = USERDIR + "\\TestData\\Product.csv";
+	private static final String PAYMENTFILE = USERDIR + "\\TestData\\Payment.csv";
+	private static final String USERDETAILS_FILE = USERDIR + "\\TestData\\UserDetails.csv";
 
 	public enum DataTpe {
 		USERDETAILS, PAYMENT, PRODUCT
@@ -53,6 +53,7 @@ public class DataReader {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Product getProductData(String strReqDataHeader) {
+		System.out.println("   " );
 		Product productObject = null;
 		String csvFilename = null;
 		CSVReader csvReader = null;
@@ -60,9 +61,9 @@ public class DataReader {
 		CsvToBean csv = null;
 		ColumnPositionMappingStrategy strategy = new ColumnPositionMappingStrategy();
 		try {
-			strategy.setType(Payment.class);
+			strategy.setType(Product.class);
 			columns = getProductColumns();
-			csvFilename = PAYMENTFILE;
+			csvFilename = PRODUCTFILE;
 			strategy.setColumnMapping(columns);
 			csv = new CsvToBean();
 			csvReader = new CSVReader(new FileReader(csvFilename));
@@ -90,7 +91,7 @@ public class DataReader {
 		try {
 			strategy.setType(Payment.class);
 			columns = getUserDetailsColumns();
-			csvFilename = PAYMENTFILE;
+			csvFilename = USERDETAILS_FILE;
 			strategy.setColumnMapping(columns);
 			csv = new CsvToBean();
 			csvReader = new CSVReader(new FileReader(csvFilename));

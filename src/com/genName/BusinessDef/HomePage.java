@@ -2,13 +2,18 @@ package com.genName.BusinessDef;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.genName.config.DataReader;
 import com.genName.config.Utility;
 import com.genName.core.AppiumActionsHandler;
+import com.genName.datamodels.Product;
 
 import io.qameta.allure.Step;
+import junit.framework.Assert;
 
 public class HomePage extends AppiumActionsHandler {
 
+	Product productDetail ;
+	DataReader data = new DataReader();
 	private HomePageLocator locator;
 
 	// Constructor to decide the platform and load OR respec.
@@ -45,14 +50,16 @@ public class HomePage extends AppiumActionsHandler {
 	 */
 	@Step("Navigate to Given Category")
 	public void navToCategory(RemoteWebDriver driver, String strCategoryValue) {
-		checkexistenceAndClick(locator.objCategoryHamburgerMenu, driver, strCategoryValue);
+		productDetail = data.getProductData(strCategoryValue);		
+		checkexistenceAndClick(locator.objCategoryHamburgerMenu, driver, productDetail.getDepartment());
 	}
 
 	/*
 	 * Description:
 	 */
 	public void navToSubCategory( RemoteWebDriver driver, String strCategoryValue) {
-		checkexistenceAndClick(locator.objSubCategoryHamburgerMenu, driver, strCategoryValue);
+		productDetail = data.getProductData(strCategoryValue);
+		checkexistenceAndClick(locator.objSubCategoryHamburgerMenu, driver, productDetail.getSubCategory());
 	}
 
 	/*
@@ -80,16 +87,17 @@ public class HomePage extends AppiumActionsHandler {
 	 */
 	public void selectProductFromPdp(RemoteWebDriver driver, String iProductNo) {
 		click(locator.objProductinThePDP, driver, iProductNo);
-		isDisplayed(locator.dropDownSelectSizeDropDown, driver);
+		 isDisplayed(locator.dropDownSelectSizeDropDown, driver);
 	}
 
 	/*
 	 * Description:
 	 */
 	public void selectaSizePDP(RemoteWebDriver driver, String strProductSize) {
+		productDetail = data.getProductData(strProductSize);
 		click(locator.dropDownSelectSizeDropDown, driver);
 		if (isDisplayed(locator.objSelectSizePopUp_PDP, driver)) {
-			checkexistenceAndClick(locator.txtSizeOfTheProduct_PDP, driver, strProductSize);
+			checkexistenceAndClick(locator.txtSizeOfTheProduct_PDP, driver, productDetail.getProductSize());
 		}
 	}
 

@@ -2,28 +2,28 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="103086" started-at="2018-07-11T03:06:21Z" finished-at="2018-07-11T03:08:04Z">
+  <suite name="Default suite" duration-ms="87809" started-at="2018-07-11T15:54:03Z" finished-at="2018-07-11T15:55:30Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="103086" started-at="2018-07-11T03:06:21Z" finished-at="2018-07-11T03:08:04Z">
+    <test name="Default test" duration-ms="87809" started-at="2018-07-11T15:54:03Z" finished-at="2018-07-11T15:55:30Z">
       <class name="shoppingBag.VerifyShoppingBagCount">
-        <test-method status="PASS" signature="loadEnvironment()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@7cea0110]" name="loadEnvironment" is-config="true" duration-ms="140" started-at="2018-07-11T03:06:21Z" finished-at="2018-07-11T03:06:21Z">
+        <test-method status="PASS" signature="loadEnvironment()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@4f668f29]" name="loadEnvironment" is-config="true" duration-ms="200" started-at="2018-07-11T15:54:02Z" finished-at="2018-07-11T15:54:03Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loadEnvironment -->
-        <test-method status="PASS" signature="testSetUp()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@7cea0110]" name="testSetUp" is-config="true" duration-ms="85984" started-at="2018-07-11T03:06:21Z" finished-at="2018-07-11T03:07:47Z">
+        <test-method status="PASS" signature="testSetUp()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@4f668f29]" name="testSetUp" is-config="true" duration-ms="80162" started-at="2018-07-11T15:54:03Z" finished-at="2018-07-11T15:55:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSetUp -->
-        <test-method status="PASS" signature="testVerifyShoppingBagCount()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@7cea0110]" name="testVerifyShoppingBagCount" duration-ms="14986" started-at="2018-07-11T03:07:47Z" finished-at="2018-07-11T03:08:02Z">
+        <test-method status="PASS" signature="testVerifyShoppingBagCount()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@4f668f29]" name="testVerifyShoppingBagCount" duration-ms="6712" started-at="2018-07-11T15:55:23Z" finished-at="2018-07-11T15:55:30Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testVerifyShoppingBagCount -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@7cea0110]" name="tearDown" is-config="true" duration-ms="1283" started-at="2018-07-11T03:08:03Z" finished-at="2018-07-11T03:08:04Z">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@4f668f29]" name="tearDown" is-config="true" duration-ms="491" started-at="2018-07-11T15:55:30Z" finished-at="2018-07-11T15:55:30Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="clearEnvironment()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@7cea0110]" name="clearEnvironment" is-config="true" duration-ms="2" started-at="2018-07-11T03:08:04Z" finished-at="2018-07-11T03:08:04Z">
+        <test-method status="PASS" signature="clearEnvironment()[pri:0, instance:shoppingBag.VerifyShoppingBagCount@4f668f29]" name="clearEnvironment" is-config="true" duration-ms="1" started-at="2018-07-11T15:55:31Z" finished-at="2018-07-11T15:55:31Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- clearEnvironment -->
