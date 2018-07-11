@@ -1,10 +1,11 @@
 package com.genName.BusinessDef;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.genName.config.Utility;
 import com.genName.core.AppiumActionsHandler;
+
+import io.qameta.allure.Step;
 
 public class HomePage extends AppiumActionsHandler {
 
@@ -24,6 +25,7 @@ public class HomePage extends AppiumActionsHandler {
 	/*
 	 * Description:open Hamburger menu using gi
 	 */
+	@Step("Open Hamburger Menu")
 	public void openHamMenu(RemoteWebDriver driver) {
 		if (checkexistenceAndClick(locator.objHamburgerMenu, driver)) {
 			isDisplayed(locator.objShopByCategory, driver);
@@ -33,6 +35,7 @@ public class HomePage extends AppiumActionsHandler {
 	/*
 	 * Description:
 	 */
+	@Step("Navigate to 'Shop By Catogory'")
 	public void navigateToShopByCatogory(RemoteWebDriver driver) {
 		click(locator.objShopByCategory, driver);
 	}
@@ -40,6 +43,7 @@ public class HomePage extends AppiumActionsHandler {
 	/*
 	 * Description:
 	 */
+	@Step("Navigate to Given Category")
 	public void navToCategory(RemoteWebDriver driver, String strCategoryValue) {
 		checkexistenceAndClick(locator.objCategoryHamburgerMenu, driver, strCategoryValue);
 	}

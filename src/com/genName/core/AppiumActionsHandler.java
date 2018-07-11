@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
+import io.qameta.allure.Step;
+
 public class AppiumActionsHandler {
 
 	private static final String strReplaceToken = "<<<>>>";
@@ -17,6 +19,7 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	private void callWait(RemoteWebDriver driver, int iTimeOut) {
 		WebDriverWait wait = new WebDriverWait(driver, iTimeOut);
 		wait.until(ExpectedConditions.visibilityOf(objectToBeIdentified));
@@ -25,6 +28,7 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver) {
 		boolean isClicked = false;
 		try {
@@ -42,6 +46,7 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver,
 			String strReplacementValues) {
 		boolean isClicked = false;
@@ -58,6 +63,7 @@ public class AppiumActionsHandler {
 		return isClicked;
 	}
 
+	@Step
 	protected boolean click(String strObjectLocator, RemoteWebDriver driver) {
 		boolean isClicked = false;
 		WebElement clickableObject;
@@ -73,6 +79,7 @@ public class AppiumActionsHandler {
 		return isClicked;
 	}
 
+	@Step
 	protected boolean click(String strObjectLocator, RemoteWebDriver driver, String strReplaceValue) {
 
 		boolean isClicked = false;
@@ -93,10 +100,12 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	private String getLocType(String strObjectLocator) {
 		return strObjectLocator.split(":")[0].trim();
 	}
 
+	@Step
 	protected SoftAssert getSoftAssert() {
 		if (softAssert == null) {
 			softAssert = new SoftAssert();
@@ -104,6 +113,7 @@ public class AppiumActionsHandler {
 		return softAssert;
 	}
 
+	@Step
 	protected String getText(String strObjectLocator, RemoteWebDriver driver, String strReplaceValue) {
 		String strFetchValue = null;
 
@@ -123,6 +133,7 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	protected boolean isDisplayed(String strObjectLocator, RemoteWebDriver driver) {
 		boolean isDisplayedFlag = false;
 		try {
@@ -139,6 +150,7 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	protected boolean isDisplayed(String strObjectLocator, RemoteWebDriver driver, String strReplaceValue) {
 		boolean isDisplayedFlag = false;
 		strObjectLocator = replaceXpathVariables(strObjectLocator, strReplaceValue);
@@ -153,6 +165,7 @@ public class AppiumActionsHandler {
 		return isDisplayedFlag;
 	}
 
+	@Step
 	protected String getAttribute(String strObjectLocator, String strAttributeValue, RemoteWebDriver driver) {
 		String strFetchAttributeValue = null;
 		try {
@@ -170,10 +183,12 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	protected boolean isElementPresent(String Object, RemoteWebDriver driver, int iTimeOut) {
 		return false;
 	}
 
+	@Step
 	private String replaceAllXpathVariable(String strObjectLocator, String[] strReplaceValue) {
 		String strPostReplacement = null;
 		for (String strSinglReplaceValue : strReplaceValue) {
@@ -182,6 +197,7 @@ public class AppiumActionsHandler {
 		return strPostReplacement;
 	}
 
+	@Step
 	private String replaceXpathVariables(String strObjectLocator, String strReplaceValue) {
 		return strObjectLocator.replace(strReplaceToken, strReplaceValue);
 	}
@@ -189,6 +205,7 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	private WebElement returnElement(String objectName, String strLocaType, RemoteWebDriver driver) {
 		try {
 			objectName = objectName.split(":")[1].trim();
@@ -218,6 +235,7 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	protected WebElement returnElement(String objectName, String strLocaType, RemoteWebDriver driver,
 			String replacementValue) {
 		if (replacementValue == null)
@@ -229,6 +247,7 @@ public class AppiumActionsHandler {
 	/*
 	 * Desc: Author:
 	 */
+	@Step
 	private WebElement returnElement(String objectName, String strLocaType, RemoteWebDriver driver,String[] replacementValue) {
 		String lookupValue = null;
 		objectToBeIdentified = null;

@@ -11,7 +11,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -33,9 +32,9 @@ public class BaseTest {
 	static String serverUrl;
 
 	@BeforeSuite
-	public void loadEnvironment() throws Exception {		
-		logger.info("Running BeforeSuite");
+	public void loadEnvironment() throws Exception {
 		Utility.instance().initLogger();
+		logger.info("Running BeforeSuite");		
 		loadDeviceJsonAsMap();		
 		logger.info("Ending BeforeSuite");
 	}
@@ -46,8 +45,7 @@ public class BaseTest {
 		if (deviceList != null) {
 			localDeviceMap = null;
 			deviceList = null;
-		}
-		
+		}		
 		logger.info("Ending AfterSuite");
 	}
 
@@ -106,6 +104,7 @@ public class BaseTest {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void loadDeviceJsonAsMap() throws Exception {
 		deviceList = Utility.instance().deviceJsonAsMap();
 		if(deviceList.size()<0) {
