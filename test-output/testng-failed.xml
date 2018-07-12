@@ -5,10 +5,10 @@
     <classes>
       <class name="shoppingBag.VerifyShoppingBagCount">
         <methods>
-          <include name="clearEnvironment"/>
           <include name="testSetUp"/>
+          <include name="loadDeviceAndLogger"/>
+          <include name="flushEnvironmentVariables"/>
           <include name="testVerifyShoppingBagCount"/>
-          <include name="loadEnvironment"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- shoppingBag.VerifyShoppingBagCount -->

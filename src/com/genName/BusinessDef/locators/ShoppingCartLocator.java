@@ -21,8 +21,8 @@ public class ShoppingCartLocator implements IPageLocator {
 
 	@Override
 	public void mobileLocators() {
-		buttonCheckOutShoppingBag 	= LocType.XPATH+"://a[@class='btn btn-success big btn-block btn-move-to-checkout ng-binding' and text()='Checkout']";
-		buttonGuestCheckOut			= LocType.XPATH+"://button[@class='guest-checkout-button' and text()='Guest Checkout']";
+		buttonCheckOutShoppingBag 	= LocType.XPATH+DELIMITER+"//a[@class='btn btn-success big btn-block btn-move-to-checkout ng-binding' and text()='Checkout']";
+		buttonGuestCheckOut			= LocType.XPATH+DELIMITER+"//button[@class='guest-checkout-button' and text()='Guest Checkout']";
 	}
 
 	@Override

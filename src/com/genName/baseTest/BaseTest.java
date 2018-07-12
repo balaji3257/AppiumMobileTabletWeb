@@ -120,14 +120,13 @@ public class BaseTest {
 		URL url;
 		try {
 			setDesiredCapabilities();
-			serverUrl  = appiumServer.startServer();
+			serverUrl  = "http://0.0.0.0:4723/wd/hub";//appiumServer.startServer();
 			url = new URL(serverUrl);
 			driver.set(new RemoteWebDriver(url, cap));
 			launchApp();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		logger.info("Ending AfterClass");
 	}
 
 }

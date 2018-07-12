@@ -44,6 +44,15 @@ public class Home extends AppiumActionsHandler {
 	public void navigateToShopByCatogory(RemoteWebDriver driver) {
 		Assert.assertTrue( click(locator.objShopByCategory, driver) );
 	}
+	
+	/*
+	 * Description: Navigate to Category
+	 */
+	@Step("Navigate to Given Department")
+	public void navToDepartment(RemoteWebDriver driver, String strDepartment) {
+		productDetail = data.getProductData(strDepartment);
+		Assert.assertTrue( checkexistenceAndClick(locator.objDepartmentHamburgerMenu, driver, productDetail.getDepartment()) );
+	}
 
 	/*
 	 * Description: Navigate to Category
@@ -51,7 +60,7 @@ public class Home extends AppiumActionsHandler {
 	@Step("Navigate to Given Category")
 	public void navToCategory(RemoteWebDriver driver, String strCategoryValue) {
 		productDetail = data.getProductData(strCategoryValue);
-		Assert.assertTrue( checkexistenceAndClick(locator.objCategoryHamburgerMenu, driver, productDetail.getDepartment()) );
+		Assert.assertTrue( checkexistenceAndClick(locator.objCategoryHamburgerMenu, driver, productDetail.getCategory()) );
 	}
 
 	/*

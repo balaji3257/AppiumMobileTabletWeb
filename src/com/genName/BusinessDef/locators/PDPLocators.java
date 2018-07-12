@@ -23,9 +23,9 @@ public class PDPLocators implements IPageLocator {
 
 	@Override
 	public void mobileLocators() {
-		objProductinThePDP 			= LocType.XPATH+":(//div[@class='product-name'])[<<<>>>]/ancestor::a[@class='productDtls']" ;
-		txtSalePricePDP 			= LocType.XPATH+":(//div[@class='product-name'])[<<<>>>]/ancestor::a[@class='productDtls']/descendant::div[@class='sale-price']" ;
-		txtOriginalPrice 			= LocType.XPATH+"://div[@class='product-name'])[<<<>>>]/ancestor::a[@class='productDtls']/descendant::div[@id='origprice']" ;
+		objProductinThePDP 			= LocType.XPATH+DELIMITER+"(//div[@class='product-name'])[<<<>>>]/ancestor::a[@class='productDtls']" ;
+		txtSalePricePDP 			= LocType.XPATH+DELIMITER+"(//div[@class='product-name'])[<<<>>>]/ancestor::a[@class='productDtls']/descendant::div[@class='sale-price']" ;
+		txtOriginalPrice 			= LocType.XPATH+DELIMITER+"//div[@class='product-name'])[<<<>>>]/ancestor::a[@class='productDtls']/descendant::div[@id='origprice']" ;
 	}
 
 	@Override

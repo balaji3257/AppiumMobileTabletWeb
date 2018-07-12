@@ -7,7 +7,9 @@ import com.genName.core.IPageLocator;
  */
 public class HomePageLocator implements IPageLocator {
 
+	; 
 	public String objCategoryHamburgerMenu;
+	public String objDepartmentHamburgerMenu;
 	public String objHamburgerMenu;
 	public String objShopByCategory;
 	public String objSubCategoryHamburgerMenu;
@@ -22,10 +24,11 @@ public class HomePageLocator implements IPageLocator {
 
 	@Override
 	public void mobileLocators() {
-		objHamburgerMenu 			= LocType.XPATH+"://div[@id='menu-section']";
-		objShopByCategory 			= LocType.XPATH+"://li[@class='shop-by-category hb-mid-block']";
-		objCategoryHamburgerMenu 	= LocType.XPATH+"://div[@id='mcom-category-menu']/descendant::ul/li[text()='<<<>>>']";
-		objSubCategoryHamburgerMenu = LocType.XPATH+"://div[@id='mcom-category-menu']/descendant::ul/li[text()='<<<>>>']";		
+		objHamburgerMenu 			= LocType.XPATH+DELIMITER+"//div[@id='menu-section']";
+		objShopByCategory 			= LocType.XPATH+DELIMITER+"//li[@class='shop-by-category hb-mid-block']";
+		objDepartmentHamburgerMenu 	= LocType.XPATH+DELIMITER+"//div[@id='mcom-category-menu']/descendant::li[text()='<<<>>>']";
+		objCategoryHamburgerMenu 	= LocType.XPATH+DELIMITER+"//div[@id='mcom-category-menu']/descendant::li[contains(text(),'<<<>>>')]";
+		objSubCategoryHamburgerMenu = LocType.XPATH+DELIMITER+"//div[@id='mcom-category-menu']/descendant::li[text()='<<<>>>']";		
 				
 	}
 

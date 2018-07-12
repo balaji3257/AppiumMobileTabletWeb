@@ -38,6 +38,8 @@ public class VerifyShoppingBagCount extends BaseTest {
 		home.openHamMenu(getWebDriver());
 
 		home.navigateToShopByCatogory(getWebDriver());
+		
+		home.navToDepartment(getWebDriver(), PRODUCT_DETAIL);
 
 		home.navToCategory(getWebDriver(), PRODUCT_DETAIL);
 

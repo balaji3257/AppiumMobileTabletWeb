@@ -27,14 +27,14 @@ public class PMPLocator implements IPageLocator {
 	
 	@Override
 	public void mobileLocators() {
-		buttonViewCartApplyPromos	= LocType.XPATH+"://*[text()='VIEW CART & APPLY PROMOS']";
-		imgShoppingCartIconWithCount = LocType.XPATH+"://*[@class='mcom-cart-icon cart-enabled']/span[text()='<<<>>>']";
-		buttonAddtoCart_PDP 		= LocType.XPATH+"://*[@id='add-to-bag-btn' and text()='Add to Cart' and @class='enabled']" ;
-		txtItemAddedToCart			= LocType.XPATH+"://*[text()='Item added to Cart']";
-		txtProductQuantity_PDP 		= LocType.XPATH+"://*[@class='quantity-selector']/descendant::input[@id='inpQuantity']" ;
-		dropDownSelectSizeDropDown 	= LocType.XPATH+"://*[@name='sizeRef1' and text()='Select a size']" ;
-		objSelectSizePopUp_PDP 		= LocType.XPATH+"://*[@class='sizelist-title']/ancestor::*[@class='size-enhance-dropdown']" ;
-		txtSizeOfTheProduct_PDP 	= LocType.XPATH+"://*[@class='sizelist-title']/ancestor::*[@class='size-enhance-dropdown']/descendant::div[@id='productSizeCln-1' and text()='<<<>>>']" ;
+		buttonViewCartApplyPromos	= LocType.XPATH+DELIMITER+"//*[text()='VIEW CART & APPLY PROMOS']";
+		imgShoppingCartIconWithCount = LocType.XPATH+DELIMITER+"//*[@class='mcom-cart-icon cart-enabled']/span[text()='<<<>>>']";
+		buttonAddtoCart_PDP 		= LocType.XPATH+DELIMITER+"//*[@id='add-to-bag-btn' and text()='Add to Cart' and @class='enabled']" ;
+		txtItemAddedToCart			= LocType.XPATH+DELIMITER+"//*[text()='Item added to Cart']";
+		txtProductQuantity_PDP 		= LocType.XPATH+DELIMITER+"//*[@class='quantity-selector']/descendant::input[@id='inpQuantity']" ;
+		dropDownSelectSizeDropDown 	= LocType.XPATH+DELIMITER+"//*[@name='sizeRef1' and text()='Select a size']" ;
+		objSelectSizePopUp_PDP 		= LocType.XPATH+DELIMITER+"//*[@class='sizelist-title']/ancestor::*[@class='size-enhance-dropdown']" ;
+		txtSizeOfTheProduct_PDP 	= LocType.XPATH+DELIMITER+"//*[@class='sizelist-title']/ancestor::*[@class='size-enhance-dropdown']/descendant::div[@id='productSizeCln-1' and text()='<<<>>>']" ;
 	}
 
 	@Override

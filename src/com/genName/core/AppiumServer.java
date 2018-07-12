@@ -26,8 +26,8 @@ public class AppiumServer {
 		try {
 			builder.withIPAddress("0.0.0.0");
 			builder.usingPort(findRandomOpenPortOnAllLocalInterfaces());
-			builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
-			builder.withArgument(GeneralServerFlag.LOG_LEVEL, "error");
+//			builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+//			builder.withArgument(GeneralServerFlag.LOG_LEVEL, "error");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

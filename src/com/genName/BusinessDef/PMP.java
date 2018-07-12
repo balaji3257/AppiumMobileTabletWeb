@@ -34,6 +34,7 @@ public class PMP extends AppiumActionsHandler{
 	 */
 	@Step("navToShoppingBag")
 	public void navToShoppingBag(RemoteWebDriver driver, String strProductCount) throws Exception {
+//		Assert.assertTrue( isDisplayed(locator.txtItemAddedToCart, driver),"Unable to identify the Item added to cart popUp" );
 		checkexistenceAndClick(locator.buttonViewCartApplyPromos, driver);
 		isDisplayed(locator.imgShoppingCartIconWithCount, driver, strProductCount);
 	}
@@ -43,8 +44,7 @@ public class PMP extends AppiumActionsHandler{
 	 */
 	@Step("addToCart")
 	public void addToCart(RemoteWebDriver driver) throws Exception {
-		checkexistenceAndClick(locator.buttonAddtoCart_PDP, driver);
-		Assert.assertTrue( isDisplayed(locator.txtItemAddedToCart, driver) );
+		checkexistenceAndClick(locator.buttonAddtoCart_PDP, driver);		
 	}
 	
 	/*
