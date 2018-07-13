@@ -28,8 +28,7 @@ public class HomePageLocator implements IPageLocator {
 		objShopByCategory 			= LocType.XPATH+DELIMITER+"//li[@class='shop-by-category hb-mid-block']";
 		objDepartmentHamburgerMenu 	= LocType.XPATH+DELIMITER+"//div[@id='mcom-category-menu']/descendant::li[text()='<<<>>>']";
 		objCategoryHamburgerMenu 	= LocType.XPATH+DELIMITER+"//div[@id='mcom-category-menu']/descendant::li[contains(text(),'<<<>>>')]";
-		objSubCategoryHamburgerMenu = LocType.XPATH+DELIMITER+"//div[@id='mcom-category-menu']/descendant::li[text()='<<<>>>']";		
-				
+		objSubCategoryHamburgerMenu = LocType.XPATH+DELIMITER+"//div[@id='mcom-category-menu']/descendant::li[text()='<<<>>>']";						
 	}
 
 	@Override
