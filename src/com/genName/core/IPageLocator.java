@@ -5,7 +5,7 @@ package com.genName.core;
  */
 public interface IPageLocator {
 
-	public static final String DELIMITER = "mmmm";
+	public static final String DELIMITER = "-Delimiter-";
 
 	/*
 	 * Loads the Tablet based page object locaors

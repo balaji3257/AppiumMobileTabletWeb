@@ -1,11 +1,8 @@
 package com.genName.core;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
@@ -14,7 +11,7 @@ import io.qameta.allure.Step;
 
 public class AppiumActionsHandler {
 
-	private static final String strReplaceToken = "<<<>>>";
+	private static final String strReplaceToken = "-Delimiter-";
 	private WebElement objectToBeIdentified = null;
 
 	private SoftAssert softAssert;
@@ -26,14 +23,15 @@ public class AppiumActionsHandler {
 	@Step
 	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver) throws Exception {
 		boolean isClicked = false;
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
 		try {
-			objectToBeIdentified = returnElement(strObjectLocator, getLocType(strObjectLocator), driver);
+			objectToBeIdentified = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
 			if (waitElementForVisibility(objectToBeIdentified, 10, driver)) {
-					objectToBeIdentified.click();
+				objectToBeIdentified.click();
 				isClicked = true;
 			}
 		} catch (Exception e) {
-			throw new Exception("Non existence of the element : " + strObjectLocator);
+			throw new Exception("Non existence of the element : " + strObjectLocator + objectToBeIdentified.toString());
 		}
 		return isClicked;
 	}
@@ -45,14 +43,12 @@ public class AppiumActionsHandler {
 	@Step
 	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver,
 			String strReplacementValues) {
-		System.out.println(" ");
 		boolean isClicked = false;
 		WebElement webElement = null;
 		String strPostReplaceXpath = replaceXpathVariables(strObjectLocator, strReplacementValues);
-		System.out.println("Replaced Xpath = " + strPostReplaceXpath);
-		String strLocatorContext = getLocType(strPostReplaceXpath);
+		String[] ObjectAndObjectType = getLocType(strPostReplaceXpath);
 		try {
-			webElement = returnElement(strPostReplaceXpath, strLocatorContext, driver);
+			webElement = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
 			if (webElement != null && webElement.isDisplayed()) {
 				webElement.click();
 				isClicked = true;
@@ -71,9 +67,9 @@ public class AppiumActionsHandler {
 	protected boolean click(String strObjectLocator, RemoteWebDriver driver) {
 		boolean isClicked = false;
 		WebElement clickableObject;
-		String strLocatorType = getLocType(strObjectLocator);
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
 		try {
-			clickableObject = returnElement(strObjectLocator, strLocatorType, driver);
+			clickableObject = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
 			if (clickableObject != null) {
 				clickableObject.click();
 				isClicked = true;
@@ -94,8 +90,9 @@ public class AppiumActionsHandler {
 		boolean isClicked = false;
 		WebElement clickableObject;
 		strObjectLocator = replaceXpathVariables(strObjectLocator, strReplaceValue);
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
 		try {
-			clickableObject = returnElement(strObjectLocator, getLocType(strObjectLocator), driver);
+			clickableObject = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
 			if (clickableObject != null) {
 				clickableObject.click();
 				isClicked = true;
@@ -110,10 +107,8 @@ public class AppiumActionsHandler {
 	 * Desc : Return Locator type Author: return : String value
 	 */
 	@Step
-	private String getLocType(String strObjectLocator) {
-		String strLocatorType = strObjectLocator.split("mmmm")[0].trim();
-		System.out.println("LocatorType =" + strLocatorType);
-		return strLocatorType;
+	private String[] getLocType(String strObjectLocator) {
+		return strObjectLocator.split(strReplaceToken);
 	}
 
 	/*
@@ -135,8 +130,9 @@ public class AppiumActionsHandler {
 		String strFetchValue = null;
 
 		strObjectLocator = replaceXpathVariables(strObjectLocator, strReplaceValue);
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
 		try {
-			objectToBeIdentified = returnElement(strObjectLocator, getLocType(strObjectLocator), driver);
+			objectToBeIdentified = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
 			if (objectToBeIdentified != null) {
 				strFetchValue = objectToBeIdentified.getText();
 			}
@@ -153,9 +149,10 @@ public class AppiumActionsHandler {
 	@Step
 	protected boolean isDisplayed(String strObjectLocator, RemoteWebDriver driver) {
 		boolean isDisplayedFlag = false;
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
 		try {
-			objectToBeIdentified = returnElement(strObjectLocator, getLocType(strObjectLocator), driver);
-			if (waitElementForVisibility( objectToBeIdentified, 10 ,driver)) {
+			objectToBeIdentified = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
+			if (waitElementForVisibility(objectToBeIdentified, 10, driver)) {
 				isDisplayedFlag = true;
 			}
 		} catch (Exception e) {
@@ -164,7 +161,7 @@ public class AppiumActionsHandler {
 		return isDisplayedFlag;
 	}
 
-	private Boolean waitElementForVisibility( WebElement el, int seconds ,RemoteWebDriver driver) {
+	private Boolean waitElementForVisibility(WebElement el, int seconds, RemoteWebDriver driver) {
 		WebDriverWait wait = new WebDriverWait(driver, seconds);
 		try {
 			WebElement element = wait.until(ExpectedConditions.visibilityOf(el));
@@ -176,7 +173,7 @@ public class AppiumActionsHandler {
 			return false;
 		}
 	}
-	
+
 	/*
 	 * Desc: Check the existence of the given element Author: Return: boolean
 	 */
@@ -184,9 +181,10 @@ public class AppiumActionsHandler {
 	protected boolean isDisplayed(String strObjectLocator, RemoteWebDriver driver, String strReplaceValue) {
 		boolean isDisplayedFlag = false;
 		strObjectLocator = replaceXpathVariables(strObjectLocator, strReplaceValue);
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
 		try {
-			objectToBeIdentified = returnElement(strObjectLocator, getLocType(strObjectLocator), driver);
-			if (waitElementForVisibility(objectToBeIdentified, 10 ,driver)) {
+			objectToBeIdentified = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
+			if (waitElementForVisibility(objectToBeIdentified, 10, driver)) {
 				isDisplayedFlag = true;
 			}
 		} catch (Exception e) {
@@ -202,8 +200,9 @@ public class AppiumActionsHandler {
 	@Step
 	protected String getAttribute(String strObjectLocator, String strAttributeValue, RemoteWebDriver driver) {
 		String strFetchAttributeValue = null;
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
 		try {
-			objectToBeIdentified = returnElement(strObjectLocator, getLocType(strObjectLocator), driver);
+			objectToBeIdentified = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
 			if (objectToBeIdentified != null) {
 				strFetchAttributeValue = objectToBeIdentified.getAttribute(strAttributeValue);
 			}
