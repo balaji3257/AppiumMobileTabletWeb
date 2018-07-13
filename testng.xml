@@ -4,6 +4,7 @@
 	<test name="SanityTest">
 		<classes>
 			<class name="shoppingBag.VerifyShoppingBagCount" />
+			<class name="shoppingBag.VerifyShoppingBagCountCopy" />
 		</classes>
 	</test>
 </suite>

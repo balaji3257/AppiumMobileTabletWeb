@@ -15,9 +15,11 @@ import org.apache.log4j.PatternLayout;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+@SuppressWarnings("rawtypes")
 public class Utility<E> {
 	private Properties cP = new Properties();
 	private static String userDir = System.getProperty("user.dir");
+
 	private static Utility singleton = new Utility();
 
 	private Utility() {
@@ -47,27 +49,29 @@ public class Utility<E> {
 	public List<Map<String, String>> deviceJsonAsMap() {
 		JSONObject deviceJsonObject;
 		List<Map<String, String>> deviceList = new ArrayList<>();
-		Map<String, String> innerDeviceMap ;
+		Map<String, String> innerDeviceMap;
 		JSONParser parser = new JSONParser();
 		String fileName = userDir + "\\TestData\\Device.json";
 		try {
 			Object obj = parser.parse(new FileReader(fileName));
 			JSONObject jsonObject = (JSONObject) obj;
+			@SuppressWarnings("unchecked")
 			Iterator<E> iterator = jsonObject.keySet().iterator();
 			while (iterator.hasNext()) {
 				String key = (String) iterator.next();
 				if (jsonObject.get(key) instanceof JSONObject) {
 					deviceJsonObject = (JSONObject) jsonObject.get(key);
-					if ((deviceJsonObject != null) && deviceJsonObject.get("executionStatus").toString().equalsIgnoreCase("YES")) {
+					if ((deviceJsonObject != null)
+							&& deviceJsonObject.get("executionStatus").toString().equalsIgnoreCase("YES")) {
 						innerDeviceMap = new HashMap<>();
 						innerDeviceMap = toMap(deviceJsonObject);
 						innerDeviceMap.put("ReUsability", "Yes");
 						deviceList.add(innerDeviceMap);
 					}
 				}
-				
+
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println("problem in reading " + fileName);
 		}
@@ -78,7 +82,7 @@ public class Utility<E> {
 	private Map<String, String> toMap(JSONObject jsonobj) {
 		Map<String, String> map = new HashMap<>();
 		Iterator<E> keys = jsonobj.keySet().iterator();
-//		Iterator<String> keys = (Iterator<String>) jsonobj.keySet();
+		// Iterator<String> keys = (Iterator<String>) jsonobj.keySet();
 		while (keys.hasNext()) {
 			String key = (String) keys.next();
 			Object value = jsonobj.get(key);
@@ -90,11 +94,13 @@ public class Utility<E> {
 		}
 		return map;
 	}
-	
+
 	public void initLogger() {
-		PatternLayout layout = new PatternLayout("%-4r [%t] %d %-5p %c %x - %m%n");
+		//%r [%t] %-5p %c %x - %m%n
+		//%-4r [%t] %d %-5p %c %x - %m%n
+		PatternLayout layout = new PatternLayout("%r [%t] %-5p %c %x - %m%n");
 		Appender consoleAppender = new ConsoleAppender(layout);
-		Logger.getRootLogger().addAppender(consoleAppender);							
+		Logger.getRootLogger().addAppender(consoleAppender);
 	}
 
 }

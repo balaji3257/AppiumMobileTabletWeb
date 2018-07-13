@@ -1,7 +1,6 @@
 package com.genName.BusinessDef.locators;
 
 import com.genName.core.IPageLocator;
-import com.genName.core.IPageLocator.LocType;
 
 /*
  * This class used to hold the object locators of the respective screen .

@@ -5,7 +5,7 @@
 		"hardwareId": "Unavailable",
 		"model": "Lenovo",
 		"status": "APPROVED",
-		"executionStatus": "YES",
+		"executionStatus": "Yes",
 		"deviceType": "Mobile"
 	},
 	"Device002": {
@@ -14,16 +14,16 @@
 		"HardwareID": "12121",
 		"model": "xyz",
 		"status": "APPROVED",
-		"executionStatus": "Yes",
+		"executionStatus": "No",
 		"deviceType": "Mobile"
 	},
 	"Device003": {
-		"_id": "NotAvailable",
-		"OS": "IOS",
+		"_id": "172.17.3.231:5555",
+		"OS": "Android",
 		"HardwareID": "12121",
-		"model": "xyz",
+		"model": "Lenovo",
 		"status": "APPROVED",
-		"executionStatus": "NO",
+		"executionStatus": "YES",
 		"deviceType": "Mobile"
 	},
 	"Device004": {

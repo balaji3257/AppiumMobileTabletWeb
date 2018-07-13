@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test thread-count="5" name="Default test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [TestSuite_Sanity]">
+  <test thread-count="5" name="SanityTest(failed)">
     <classes>
-      <class name="shoppingBag.VerifyShoppingBagCount">
+      <class name="shoppingBag.VerifyShoppingBagCountCopy">
         <methods>
           <include name="testSetUp"/>
           <include name="loadDeviceAndLogger"/>
-          <include name="flushEnvironmentVariables"/>
           <include name="testVerifyShoppingBagCount"/>
+          <include name="flushEnvironmentVariables"/>
+          <include name="afterTest"/>
           <include name="tearDown"/>
         </methods>
-      </class> <!-- shoppingBag.VerifyShoppingBagCount -->
+      </class> <!-- shoppingBag.VerifyShoppingBagCountCopy -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- SanityTest(failed) -->
+</suite> <!-- Failed suite [TestSuite_Sanity] -->

@@ -20,7 +20,7 @@ import io.qameta.allure.Step;
 public class AppiumActionsHandler {
 
 	private static final Logger logger = LogManager.getLogger(AppiumActionsHandler.class);
-	private static final String REPLACE_TOKEN = "-Delimiter-";
+	private static final String REPLACE_TOKEN = "<<<>>>";
 	private WebElement objectToBeIdentified = null;
 	private static final int DEFAULT_TIMEOUT = 20;
 	
@@ -49,7 +49,7 @@ public class AppiumActionsHandler {
 	
 	
 	//Text attachments for Allure
-    @Attachment(value = "{0}", type = "text/plain")
+    @Attachment(value = "Error Message")
     public static String saveTextLog (String message) {
         return message;
     }
@@ -59,12 +59,12 @@ public class AppiumActionsHandler {
 	 */
 	@Step
 	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver) throws OwnException {
-		logger.info("***checkexistenceAndClick***");
+		logger.info("***checkexistenceAndClick ***");
 		boolean isClicked = false;
 		String[] ObjectAndObjectType = getLocType(strObjectLocator);
 		try {
 			objectToBeIdentified = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver);
-			if (waitElementForVisibility(objectToBeIdentified, 10, driver)) {
+			if (waitElementForVisibility(objectToBeIdentified, DEFAULT_TIMEOUT, driver)) {
 				objectToBeIdentified.click();
 				isClicked = true;
 			}
@@ -82,7 +82,7 @@ public class AppiumActionsHandler {
 	 */
 	@Step
 	protected boolean checkexistenceAndClick(String strObjectLocator, RemoteWebDriver driver,String strReplacementValues) {
-		logger.info("***checkexistenceAndClick***");
+		logger.info("***checkexistenceAndClickwithDynamicLocator***");
 		boolean isClicked = false;
 		WebElement webElement = null;
 		String strPostReplaceXpath = replaceXpathVariables(strObjectLocator, strReplacementValues);
@@ -95,7 +95,7 @@ public class AppiumActionsHandler {
 			}
 		} catch (Exception e) {
 			saveScreenshotPNG(driver);
-			saveTextLog(e.toString());
+			saveTextLog(e.getMessage());
 			logger.error("Unable to get checkelement", e);
 		}
 		return isClicked;
@@ -248,7 +248,7 @@ public class AppiumActionsHandler {
 			return By.xpath(strLocator);
 		case LOC_ID:
 			return By.id(strLocator);
-		case "LOC_CLASSNAME":
+		case LOC_CLASSNAME:
 			return By.className(strLocator);
 		default:
 			return By.xpath(strLocator);
@@ -260,7 +260,7 @@ public class AppiumActionsHandler {
 	 */
 	@Step
 	private String[] getLocType(String strObjectLocator) {
-		return strObjectLocator.split(REPLACE_TOKEN);
+		return strObjectLocator.split(IPageLocator.DELIMITER);
 	}
 
 	/*
@@ -400,7 +400,8 @@ public class AppiumActionsHandler {
 	@Step
 	private String replaceXpathVariables(String strObjectLocator, String strReplaceValue) {
 		logger.info("***ReplaceXpathWithDynamicVariables***");
-		 return strObjectLocator.replace(REPLACE_TOKEN, strReplaceValue);		
+		String strPostReplacement = strObjectLocator.replace(REPLACE_TOKEN, strReplaceValue);
+		 return strPostReplacement;		
 	}
 
 	/*
@@ -410,9 +411,7 @@ public class AppiumActionsHandler {
 	private WebElement returnElement(String objectName, String strLocaType, RemoteWebDriver driver) throws OwnException  {
 		logger.info("***ReturnELementMethod***");
 		try {
-			objectName = objectName.split("mmmm")[1].trim();
-			
-			switch (strLocaType.toUpperCase()) {
+		switch (strLocaType.toUpperCase()) {
 			case LOC_XPATH:
 				return driver.findElement(By.xpath(objectName));
 			case LOC_CSS:

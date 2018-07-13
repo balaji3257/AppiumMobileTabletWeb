@@ -12,7 +12,9 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
@@ -26,14 +28,14 @@ public class BaseTest {
 
 	
 	static AppiumServer appiumServer = new AppiumServer();
-	private static Map<String, String> localDeviceMap = new HashMap<>();
+	protected static Map<String, String> localDeviceMap = new HashMap<>();
 	/*
 	 * Base class is used to configure the device and other environment Details for the Execution
 	 */
 	private static final Logger logger = LogManager.getLogger(BaseTest.class);
 	static String serverUrl;
 	private DesiredCapabilities cap;
-	private List<Map<String, String>> deviceList = new ArrayList<>();
+	private static List<Map<String, String>> deviceList = new ArrayList<>();
 	private ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 
 	@AfterSuite
@@ -42,6 +44,10 @@ public class BaseTest {
 			localDeviceMap = null;
 			deviceList = null;
 		}		
+		int PortNumber = Integer.parseInt(serverUrl.split(":")[2].replaceAll("/wd/hub", "") );
+		if(appiumServer.checkIfServerIsRunnning(PortNumber) ) {
+			appiumServer.stopServer();			
+		}
 		logger.info("Ending TestSuite");
 	}
 
@@ -68,6 +74,7 @@ public class BaseTest {
 	@SuppressWarnings("unchecked")
 	private void loadDeviceJsonAsMap() throws Exception {
 		deviceList = Utility.instance().deviceJsonAsMap();
+		logger.info(deviceList.toString());
 		if(deviceList.size()<0) {
 			throw new Exception("Error Loading Device.json file");
 		}
@@ -107,11 +114,12 @@ public class BaseTest {
 
 	@AfterClass
 	public void tearDown() {
-		int PortNumber = Integer.parseInt(serverUrl.split(":")[2].replaceAll("/wd/hub", "") );
-		if(appiumServer.checkIfServerIsRunnning(PortNumber) ) {
-			appiumServer.stopServer();
-			localDeviceMap.put("ReUsability", "Yes");
-		}
+		logger.info("AtferClass");
+	}
+	@AfterMethod
+	public void afterTest() {
+		logger.info("After Test");
+		localDeviceMap.put("ReUsability", "Yes");
 	}
 
 	@BeforeClass

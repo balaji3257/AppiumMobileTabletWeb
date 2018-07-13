@@ -2,7 +2,6 @@ package shoppingBag;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 import com.genName.BusinessDef.Home;
@@ -16,10 +15,10 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 
 @Epic("REGRESSION")
-public class VerifyShoppingBagCount extends BaseTest {
+public class VerifyShoppingBagCountCopy extends BaseTest {
 
 	// logger - to log executuion details
-	private static final Logger logger = LogManager.getLogger(VerifyShoppingBagCount.class);
+	private static final Logger logger = LogManager.getLogger(VerifyShoppingBagCountCopy.class);
 
 	public static final String PRODUCT_ORDER = "2";
 	public static final String PRODUCT_DETAIL = "ShopByCategory";
@@ -40,7 +39,7 @@ public class VerifyShoppingBagCount extends BaseTest {
 
 		home.navigateToShopByCatogory(getWebDriver());
 		
-		home.navToDepartment(getWebDriver(), PRODUCT_DETAIL);
+		/*home.navToDepartment(getWebDriver(), PRODUCT_DETAIL);
 
 		home.navToCategory(getWebDriver(), PRODUCT_DETAIL);
 
@@ -66,8 +65,7 @@ public class VerifyShoppingBagCount extends BaseTest {
 
 		cart.clickCheckOutShoppingCart(getWebDriver());
 
-		cart.enterGuestCheckout(getWebDriver());
+		cart.enterGuestCheckout(getWebDriver());*/
 	}
-	
 
 }
