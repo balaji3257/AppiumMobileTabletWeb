@@ -13,6 +13,7 @@ public class AppiumActionsHandler {
 
 	private static final String strReplaceToken = "-Delimiter-";
 	private WebElement objectToBeIdentified = null;
+	private static final int DEFAULT_TIMEOUT = 20;
 
 	private SoftAssert softAssert;
 
@@ -98,9 +99,116 @@ public class AppiumActionsHandler {
 				isClicked = true;
 			}
 		} catch (Exception e) {
-
+			presenceOfElement(ObjectAndObjectType[1], ObjectAndObjectType[0], DEFAULT_TIMEOUT, driver).click();
 		}
 		return isClicked;
+	}
+
+	/*
+	 * Desc: Send input value to the given field Return : null
+	 * 
+	 */
+	@Step
+	protected void sendKeys(String strObjectLocator, String strInputValue, RemoteWebDriver driver) {
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
+		try {
+			returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver).sendKeys(strInputValue);
+		} catch (Exception e) {
+			presenceOfElement(ObjectAndObjectType[1], ObjectAndObjectType[0], DEFAULT_TIMEOUT, driver).sendKeys(strInputValue);
+		}
+	}
+
+	/*
+	 * Desc: Send input value to the given field Return : null
+	 * 
+	 */
+	@Step
+	protected void sendKeyswithDynamicLocator(String strObjectLocator, String strInputValue, String strReplacevalue,RemoteWebDriver driver) {
+		strObjectLocator = replaceXpathVariables(strObjectLocator, strReplacevalue);
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
+		try {
+			returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver).sendKeys(strInputValue);
+		} catch (Exception e) {
+			presenceOfElement(ObjectAndObjectType[1], ObjectAndObjectType[0], DEFAULT_TIMEOUT, driver).sendKeys(strInputValue);
+		}
+	}
+
+	/*
+	 * Desc : check whether given element is selcted or not
+	 * Returns: boolean
+	 */
+	protected boolean isSelected(String strObjectLocator,  RemoteWebDriver driver) throws Exception {
+		boolean isSelectedFlag = false;
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
+		try {
+			isSelectedFlag = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver).isSelected();
+		} catch (Exception e) {
+			isSelectedFlag = visbilityOfElement(ObjectAndObjectType[1], ObjectAndObjectType[0], DEFAULT_TIMEOUT,driver).isSelected();
+		}
+		return isSelectedFlag;
+	}
+
+	protected boolean isSelectedWithDynamicLocator(String strObjectLocator, String strReplacevalue,RemoteWebDriver driver) throws Exception {
+
+		boolean isSelectedFlag = false;
+		strObjectLocator = replaceXpathVariables(strObjectLocator, strReplacevalue);
+		String[] ObjectAndObjectType = getLocType(strObjectLocator);
+		try {
+			isSelectedFlag = returnElement(ObjectAndObjectType[1], ObjectAndObjectType[0], driver).isSelected();
+		} catch (Exception e) {
+			isSelectedFlag = visbilityOfElement(ObjectAndObjectType[1], ObjectAndObjectType[0], DEFAULT_TIMEOUT,driver).isSelected();
+		}
+		return isSelectedFlag;
+	}
+	
+	private WebElement visbilityOfElement(String strLocator, String strLocatorType, int seconds,RemoteWebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, seconds);
+		WebElement element = null;
+		try {
+			element = wait.until(ExpectedConditions.visibilityOfElementLocated((by(strLocator, strLocatorType)) ) );
+			if(element.isDisplayed() && element==null) {
+				
+			}
+		}catch(Exception e) {
+			try{
+				// Hande PopUps try block 
+			}catch(Exception e1) {
+				throw new Exception("");
+			}
+		}
+		return element;
+	}
+
+	/*
+	 * Desc: wait for the presence of element Return : webElement object
+	 */
+	private WebElement presenceOfElement(String strLocator, String strLocatorType, int seconds,RemoteWebDriver driver) {
+		WebDriverWait wait = new WebDriverWait(driver, seconds);
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by(strLocator, strLocatorType)));
+		if (element.isDisplayed()) {
+			// future implementation
+		}
+		return element;
+	}
+
+	/*
+	 * Desc: returns final By Locator object Return : By object
+	 */
+	private By by(final String strLocator, final String strLocatorType) {
+		By byElement = null;
+		switch (strLocatorType.toUpperCase()) {
+		case "XPATH":
+			byElement = By.xpath(strLocator);
+			break;
+		case "ID":
+			byElement = By.id(strLocator);
+			break;
+		case "CLASSNAME":
+			byElement = By.className(strLocator);
+			break;
+		}
+
+		return byElement;
 	}
 
 	/*
@@ -304,4 +412,12 @@ public class AppiumActionsHandler {
 			return driver.findElement(By.xpath(lookupValue));
 		}
 	}
+
+	/*
+	 * WebElement findElement(RemoteWebDriver driver) { WebElement element =
+	 * driver.findElement(By.id(getSelector())); if (element == null) element =
+	 * driver.findElement(By.name(getSelector()); return element;
+	 * 
+	 * }
+	 */
 }
